@@ -9,14 +9,13 @@ variable "proxmox_api_url" {
 
 variable "proxmox_api_token" {
   type        = string
-  description = "Proxmox API token ID (format: USER@REALM!TOKENID)"
+  description = "Proxmox API token in full format: USER@REALM!TOKENID=UUID (e.g., 'terraform@pam!terraform=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx')"
   sensitive   = true
-}
 
-variable "proxmox_api_token_secret" {
-  type        = string
-  description = "Proxmox API token secret (the UUID secret portion)"
-  sensitive   = true
+  validation {
+    condition     = can(regex("^.+@.+!.+=.+$", var.proxmox_api_token))
+    error_message = "proxmox_api_token must be in the format USER@REALM!TOKENID=UUID."
+  }
 }
 
 variable "ssh_private_key" {
