@@ -1,4 +1,31 @@
 ################################################################################
+# Provider Configuration (required for no-code / HCP Terraform)
+################################################################################
+
+variable "proxmox_api_url" {
+  type        = string
+  description = "Proxmox API endpoint URL (e.g., 'https://192.168.1.10:8006')"
+}
+
+variable "proxmox_api_token" {
+  type        = string
+  description = "Proxmox API token ID (format: USER@REALM!TOKENID)"
+  sensitive   = true
+}
+
+variable "proxmox_api_token_secret" {
+  type        = string
+  description = "Proxmox API token secret (the UUID secret portion)"
+  sensitive   = true
+}
+
+variable "ssh_private_key" {
+  type        = string
+  description = "SSH private key for Proxmox host access (used by provider for cloud-init snippet uploads)"
+  sensitive   = true
+}
+
+################################################################################
 # Cluster Identity
 ################################################################################
 
